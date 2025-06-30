@@ -25,29 +25,31 @@
 
   <button onclick="vorlesen()">🔊 Impressum vorlesen</button>
 
-  <p>Angaben gemäß § 5 TMG:</p>
-  <p>
-    Walter Bergkemper<br>
-    Hauptstr.  8<br>
-    46499 Hamminkeln<br>
-    E-Mail: walter@bergkemper.de
-  </p>
+  <div id="vorlesetext">
+    <p>Angaben gemäß § 5 TMG:</p>
+    <p>
+      Walter Bergkemper<br>
+      Hauptstr. 8<br>
+      26499 Hamminkeln<br>
+      E-Mail: walter@nergkemper.de
+    </p>
 
-  <p>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</p>
-  <p>
-    Walter Bergkemper<br>
-    (Anschrift wie oben)
-  </p>
+    <p>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</p>
+    <p>
+      Walter Bergkemper<br>
+      (Anschrift wie oben)
+    </p>
+  </div>
 
   <script>
     function vorlesen() {
-      const text = `Impressum. Angaben gemäß Paragraf 5 TMG:
-        Walter Bergkemper, Musterstraße 1, 12345 Musterstadt.
-        E-Mail: walter@example.com.
-        Verantwortlich für den Inhalt nach Paragraf 55 Absatz 2 RStV: Walter Bergkemper.`;
-      const utterance = new SpeechSynthesisUtterance(text);
+      const element = document.getElementById("vorlesetext");
+      // Text aus dem Element extrahieren (Zeilenumbrüche sauber ersetzt)
+      let text = element.innerText || element.textContent;
+      text = text.replace(/\n+/g, '. ').replace(/\s{2,}/g, ' ');
+      const utterance = new SpeechSynthesisUtterance(text.trim());
       utterance.lang = "de-DE";
-      window.speechSynthesis.cancel(); // stop vorherige Sprache
+      window.speechSynthesis.cancel();
       window.speechSynthesis.speak(utterance);
     }
   </script>
